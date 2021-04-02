@@ -38,6 +38,12 @@ app.get('/', (req, res) => {                //redirecting to a perticular  room 
 //   res.render('test',{data:data})
 // })
 
+app.post('/register',(req,res)=>{
+  console.log(req.body)
+  database.insert({"username":`${req.body.username}`,"code":`${req.body.code}`,"coin":"100"})
+  res.render('login')
+})
+
 app.post('/enter',(req,res)=>{
   console.log('user entered')
   console.log(req.body);
