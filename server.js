@@ -58,7 +58,7 @@ app.post('/enter',(req,res)=>{
       res.redirect(`${data.room}`)
     }else{
       res.render('error')
-    }
+    } 
   })
   // database.insert(data);
    
