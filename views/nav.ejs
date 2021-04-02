@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation</title>
+    <script>
+        // const getCookie = (name) => {
+        //   const value = "; " + document.cookie;
+        //   const parts = value.split("; " + name + "=");
+        //   if (parts.length === 2) return parts.pop().split(";").shift();
+        // };
+
+        // const deleteCookie = (name) => {
+        //   document.cookie = name + '=; max-age=0;';
+        // };
+
+        // const parseObjectFromCookie = (cookie) => {
+        //   const decodedCookie = decodeURIComponent(cookie);
+        //   return JSON.parse(decodedCookie);
+        // };
+
+        // // window.onload = () => {
+        //   let dataCookie = getCookie('data');
+        //   deleteCookie('data');
+
+        //     if (dataCookie) {
+        //       const data = parseObjectFromCookie(dataCookie);
+        //       // work with data. `data` is equal to `visitCard` from the server
+        //       console.log(`pls work ${data.username}`)
+        //       const roomReqId= data.roomReqId;
+        //       const username= data.username;
+
+        //         var form = document.createElement("form");
+        //         var element1 = document.createElement("input"); 
+        //         // var element2 = document.createElement("input");  
+
+        //         form.method = "POST";
+        //         form.action = `/${roomReqId}`;   
+
+        //         element1.value=username;
+        //         element1.name="username";
+        //         form.appendChild(element1);  
+
+        //         // element2.value=pw;
+        //         // element2.name="pw";
+        //         // form.appendChild(element2);
+
+        //         document.body.appendChild(form);
+
+        //         form.submit();
+
+            
+        //     } else {
+        //       // handle data not found
+        //       console.log('data not found')
+        //     }
+        // // }
+
+        
+    </script>
+</head>
+<body>
+    <div>
+            redirecting
+    </div>
+
+    <script>
+       
+       const getCookie = (name) => {
+          const value = "; " + document.cookie;
+          const parts = value.split("; " + name + "=");
+          if (parts.length === 2) return parts.pop().split(";").shift();
+        };
+
+        const deleteCookie = (name) => {
+          document.cookie = name + '=; max-age=0;';
+        };
+
+        const parseObjectFromCookie = (cookie) => {
+          const decodedCookie = decodeURIComponent(cookie);
+          return JSON.parse(decodedCookie);
+        };
+
+        // window.onload = () => {
+          let dataCookie = getCookie('data');
+          deleteCookie('data');
+
+            if (dataCookie) {
+              const data = parseObjectFromCookie(dataCookie);
+              // work with data. `data` is equal to `visitCard` from the server
+              console.log(`pls work ${data.username}`)
+              const roomReqId= data.roomReqId;
+              const username= data.username;
+
+                var form = document.createElement("form");
+                var element1 = document.createElement("input"); 
+                // var element2 = document.createElement("input");  
+
+                form.method = "POST";
+                form.action = `/${roomReqId}`;   
+
+                element1.value=username;
+                element1.name="username";
+                form.appendChild(element1);  
+
+                // element2.value=pw;
+                // element2.name="pw";
+                // form.appendChild(element2);
+
+                document.body.appendChild(form);
+
+                form.submit();
+
+            
+            } else {
+              // handle data not found
+              console.log('data not found')
+            }
+        // }
+
+    </script>
+</body>
+</html>

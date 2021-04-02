@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 // const cors = require('cors')
 // app.use(cors())
+const fetch = require('node-fetch')
 const DataStore = require('nedb')
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
@@ -41,22 +42,62 @@ app.post('/enter',(req,res)=>{
   console.log('user entered')
   console.log(req.body);
   const data = req.body;
-  database.insert(data);
+ 
+  database.findOne({"username":`${data.username}`},function(err, doc){
+    console.log(doc.code)
+    if(data.code === doc.code){
+      // the url is hardcoded pls find a sol
+      // await fetch(`http://localhost:3000/${data.room}`,{method:'POST',body:{username:`${data.username}`}}).then(results=>results.json()).then(console.log)
+      const dataNav={
+        username:`${req.body.username}`,
+        roomReqID:`${req.body.room}`
+      }
+      res.cookie('data', JSON.stringify(dataNav))
+      
+      
+      res.redirect(`${data.room}`)
+    }else{
+      res.render('error')
+    }
+  })
+  // database.insert(data);
+   
 
   
-  res.redirect(`${data.room}`)
  
 })
 
 app.post('/nav', (req,res)=>{
   console.log(`changing room to ${req.body.nextRoom}`)
-  res.redirect(`/${req.body.nextRoom}`)
+  database.findOne({"username":`${req.body.username}`},function(err, doc){
+    console.log(parseInt(doc.coin) )
+    if((parseInt(doc.coin)) <= 0 ){
+      const newCoin = parseInt(doc.coin) + 200
+      database.update({"username":`${req.body.username}`},{$set:{"coin":`${newCoin}`}}, {})
+      console.log('haha')
+      res.render('error')
+    }else{
+
+    
+    database.update({"username":`${req.body.username}`},{$set:{"coin":`${parseInt(doc.coin)-10}`}}, { }, function (err, numReplaced){
+      console.log(`jason found ${numReplaced}`)
+      // res.render('error')
+      const dataNav={
+        username:`${req.body.username}`,
+        roomReqID:`${req.body.nextRoom}`
+      }
+      res.cookie('data', JSON.stringify(dataNav))
+      // res.render('nav')
+      console.log('going to render')
+      res.redirect(`/${req.body.nextRoom}`)
+    })
+    }
+  })
 })
 
 app.get('/:room', (req, res) => {                     // using the link sending the roomid to room.ejs file
   //check if the persion is allowed ti the room
-  
-  res.render('room', { roomId: req.params.room })
+  res.render('room', { roomId: req.params.room , username: req.body})
 
 })
 
